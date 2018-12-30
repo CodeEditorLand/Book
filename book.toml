@@ -1,0 +1,5 @@
+[book]
+authors = ["강동윤"]
+multilingual = false
+src = "src"
+title = "swc"
