@@ -1,0 +1,53 @@
+dist: trusty
+
+language: rust
+rust:
+- nightly
+
+# Need to cache the whole `.cargo` directory to keep .crates.toml for
+# cargo-update to work
+cache:
+  directories:
+    - /home/travis/.cargo
+# But don't cache the cargo registry
+before_cache:
+  - rm -rf /home/travis/.cargo/registry
+
+install:
+    - cargo install mdbook || true
+
+script:
+    - true
+
+before_deploy:
+    - mdbook build
+
+
+after_success:
+# Temporarily disabled because cargo tarpaulin does not set CARGO_MANIFEST_DIR.
+#
+# - bash <(curl https://raw.githubusercontent.com/xd009642/tarpaulin/master/travis-install.sh)  
+# - |
+#   cargo tarpaulin --all --ignore-tests --out Xml &&
+#   bash <(curl -s https://codecov.io/bash)
+# - '[ $TRAVIS_PULL_REQUEST = false ] &&
+#      [ "$TRAVIS_BRANCH" == "master" ] &&
+#     ./.travis/docs.sh'
+deploy:
+  local_dir: book
+  repo: swc-project/swc-project.github.io
+  target_branch: master
+  provider: pages
+  skip_cleanup: true
+  github_token: $GH_TOKEN
+  email: kdy1@outlook.kr
+  name: "강동윤"
+  on:
+    branch: master
+
+notifications:
+  email: never
+
+branches:
+  only:
+    - master

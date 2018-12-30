@@ -2,4 +2,4 @@
 authors = ["강동윤"]
 multilingual = false
 src = "src"
-title = "swc"
+title = "swc: speedy web compiler"
