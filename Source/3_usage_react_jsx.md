@@ -1,6 +1,5 @@
 # with React (jsx)
 
 ```js
-const { transform } = require('swc');
-
+const { transform } = require("swc");
 ```
